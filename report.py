@@ -44,6 +44,12 @@ button_2 = Button(sea, text="Exit", padx = 50, pady = 15, fg = "#ff0000", comman
 button_1.grid(row = 3, column = 0)
 button_2.grid(row = 3, column = 1)
 
+button_1.place(relx=0.3, rely=0.5, anchor=CENTER)
+button_2.place(relx=0.7, rely=0.5, anchor=CENTER)
+who.place(relx=0.5, rely=0.1, anchor=N)
+where.place(relx=0.5, rely=0.2, anchor=N)
+when.place(relx=0.5, rely=0.3, anchor=N)
+
 sea.resizable(False, False)
 
 sea.mainloop()

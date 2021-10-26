@@ -10,7 +10,7 @@ sea.tk.call("wm", "iconphoto", sea._w, img) # Place l'icone dans la barre de fen
 bg = PhotoImage(file="imgs/background.png") # Charge l'image de l'arrière-plan
 photo = Label(sea, image=bg)
 photo.place(x=0, y=0) # Place l'image en arrière-plan
-p = vlc.MediaPlayer("imgs/music.m4a") # Charge la musique
+p = vlc.MediaPlayer("sounds/music.mp3") # Charge la musique
 p.play() # Lire la musique
 
 # Fonction pour écrire le formulaire dans un fichier CSV

@@ -14,7 +14,13 @@ def write_csv(who, when, where):
     with open("report.csv", "a", newline='', encoding='utf-8') as file:
         write = csv.writer(file, quoting = csv.QUOTE_ALL)
         write.writerow([who.get()] + [] + [where.get()] + [] + [when.get()])
+
     newWindow = Toplevel(sea)
+    newWindow.geometry("300x50+100+100")
+    newWindow.title("Thanks")
+    img = PhotoImage(file="imgs/favicon.png")
+    newWindow.tk.call("wm", "iconphoto", newWindow._w, img)
+
     Label(newWindow, text ="Thanks for report the oil leaking !").pack()
     label = Label(sea, text ="Thanks for report the oil leaking !")
     label.pack
@@ -44,8 +50,8 @@ button_2 = Button(sea, text="Exit", padx = 50, pady = 15, fg = "#ff0000", comman
 button_1.grid(row = 3, column = 0)
 button_2.grid(row = 3, column = 1)
 
-button_1.place(relx=0.3, rely=0.5, anchor=CENTER)
-button_2.place(relx=0.7, rely=0.5, anchor=CENTER)
+button_1.place(relx=0.4, rely=0.5, anchor=N)
+button_2.place(relx=0.6, rely=0.5, anchor=N)
 who.place(relx=0.5, rely=0.1, anchor=N)
 where.place(relx=0.5, rely=0.2, anchor=N)
 when.place(relx=0.5, rely=0.3, anchor=N)

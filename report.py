@@ -1,5 +1,6 @@
 import csv
 from tkinter import *
+import vlc
 
 sea = Tk()
 sea.geometry("800x600+100+100")
@@ -9,6 +10,8 @@ sea.tk.call("wm", "iconphoto", sea._w, img)
 bg = PhotoImage(file="imgs/background.png")
 photo = Label(sea, image=bg)
 photo.place(x=0, y=0)
+p = vlc.MediaPlayer("imgs/music.m4a")
+p.play()
 
 def write_csv(who, when, where):
     with open("report.csv", "a", newline='', encoding='utf-8') as file:

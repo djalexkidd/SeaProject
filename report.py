@@ -32,17 +32,26 @@ def write_csv(who, when, where):
     button_ok = Button(newWindow, text="Ok", command = click_ok, padx = 25, pady = 10)
     button_ok.pack()
 
+who_info = Label(sea, text="Who are you ?")
+who_info.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
+who_info.place(relx=0.15, rely=0.11, anchor=N)
+
+where_info = Label(sea, text="Where is it ?")
+where_info.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
+where_info.place(relx=0.15, rely=0.21, anchor=N)
+
+when_info = Label(sea, text="When is it ?")
+when_info.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
+when_info.place(relx=0.15, rely=0.31, anchor=N)
+
 who = Entry(sea, width = 50, borderwidth = 5)
 who.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
-who.insert(0, "Who are you ?")
 
 where = Entry(sea, width = 50, borderwidth = 5)
 where.grid(row = 1, column = 0, columnspan = 3, padx = 10, pady = 10)
-where.insert(0, "Where is it ?")
 
 when = Entry(sea, width = 50, borderwidth = 5)
 when.grid(row = 2, column = 0, columnspan = 3, padx = 10, pady = 10)
-when.insert(0, "When is it ?")
 
 button_1 = Button(sea, text="Send", padx = 50, pady = 15, fg = "#00ff00", command = lambda: write_csv(who, when, where))
 button_2 = Button(sea, text="Exit", padx = 50, pady = 15, fg = "#ff0000", command = sea.destroy)

@@ -13,7 +13,7 @@ photo.place(x=0, y=0)
 def write_csv(who, when, where):
     with open("report.csv", "a", newline='', encoding='utf-8') as file:
         write = csv.writer(file, quoting = csv.QUOTE_ALL)
-        write.writerow([info1.get()] + [] + [info2.get()] + [] + [info3.get()])
+        write.writerow([who.get()] + [] + [where.get()] + [] + [when.get()])
     newWindow = Toplevel(sea)
     Label(newWindow, text ="Thanks for report the oil leaking !").pack()
     label = Label(sea, text ="Thanks for report the oil leaking !")
@@ -26,18 +26,15 @@ def write_csv(who, when, where):
     button_ok = Button(newWindow, text="Ok", command = click_ok, padx = 25, pady = 10)
     button_ok.pack()
 
-info1 = StringVar()
-who = Entry(sea, width = 50, borderwidth = 5, textvariable=info1)
+who = Entry(sea, width = 50, borderwidth = 5)
 who.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
 who.insert(0, "Who are you ?")
 
-info2 = StringVar()
-where = Entry(sea, width = 50, borderwidth = 5, textvariable=info2)
+where = Entry(sea, width = 50, borderwidth = 5)
 where.grid(row = 1, column = 0, columnspan = 3, padx = 10, pady = 10)
 where.insert(0, "Where is it ?")
 
-info3 = StringVar()
-when = Entry(sea, width = 50, borderwidth = 5, textvariable=info3)
+when = Entry(sea, width = 50, borderwidth = 5)
 when.grid(row = 2, column = 0, columnspan = 3, padx = 10, pady = 10)
 when.insert(0, "When is it ?")
 

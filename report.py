@@ -38,6 +38,12 @@ def write_csv(meteo, vent, longitude, latitude):
     button_ok = Button(newWindow, text="Ok", command = click_ok, padx = 25, pady = 10)
     button_ok.pack()
 
+def mute():
+    if p.is_playing():
+        p.stop()
+    else:
+        p.play()
+
 # Label à placer à gauche du champ de texte pour la météo
 meteo_info = Label(sea, text="Quel est la météo ? (calme ou agité)")
 meteo_info.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
@@ -76,13 +82,16 @@ latitude.grid(row = 7, column = 0, columnspan = 3, padx = 10, pady = 10)
 
 button_1 = Button(sea, text="Send", padx = 50, pady = 15, fg = "#00ff00", command = lambda: write_csv(meteo, vent, longitude, latitude)) # Bouton envoyer (lambda envoie les quatre valeurs)
 button_2 = Button(sea, text="Exit", padx = 50, pady = 15, fg = "#ff0000", command = sea.destroy) # Bouton quitter
+button_3 = Button(sea, text="Mute Music", fg = "#ff0000", command = mute) # Bouton mute
 
 button_1.grid(row = 8, column = 0)
 button_2.grid(row = 8, column = 1)
+button_3.grid(row = 3, column = 2)
 
 # Mise en page des boutons
 button_1.place(relx=0.4, rely=0.9, anchor=N)
 button_2.place(relx=0.6, rely=0.9, anchor=N)
+button_3.place(relx=0, rely=0, anchor=NW)
 meteo.place(relx=0.5, rely=0.2, anchor=N)
 vent.place(relx=0.5, rely=0.4, anchor=N)
 longitude.place(relx=0.5, rely=0.6, anchor=N)

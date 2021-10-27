@@ -23,7 +23,7 @@ def write_csv(meteo, vent, longitude, latitude):
     # Fenêtre du bouton OK
     newWindow = Toplevel(sea)
     newWindow.geometry("300x50+100+100") # Taille de la fenêtre
-    newWindow.title("Thanks")
+    newWindow.title("Merci")
     img = PhotoImage(file="imgs/favicon.png")
     newWindow.tk.call("wm", "iconphoto", newWindow._w, img)
 
@@ -33,15 +33,15 @@ def write_csv(meteo, vent, longitude, latitude):
     label.pack
 
     def click_ok():
-        label_ok = Label(sea, text ="Ok")
+        label_ok = Label(sea, text ="OK")
         sea.destroy() # Quitte le programme
 
-    button_ok = Button(newWindow, text="Ok", command = click_ok, padx = 25, pady = 10)
+    button_ok = Button(newWindow, text="OK", command = click_ok, padx = 25, pady = 10)
     button_ok.pack()
 
 # Fonction pour vérifier que le champ météo est bon
 def checkError():
-    if bool(re.search("^c(alme)?$" or "^a(gité)?$", str(meteo.get()), re.IGNORECASE)) == True:
+    if bool(re.search(r"\b^c(alme)?$\b|\b^a(gité)?$\b", str(meteo.get()), re.IGNORECASE)) and bool(re.search(r"\b^l(ent)?$\b|\b^r(apide)?$\b", str(vent.get()), re.IGNORECASE)) == True:
         write_csv(meteo, vent, longitude, latitude)
     else:
         error()
@@ -54,7 +54,7 @@ def error():
     img = PhotoImage(file="imgs/favicon.png")
     errorWindow.tk.call("wm", "iconphoto", errorWindow._w, img)
 
-    Label(errorWindow, text ="Donnée non conforme !").pack()
+    Label(errorWindow, text ="Données non conforme !").pack()
 
 def mute():
     if p.is_playing():

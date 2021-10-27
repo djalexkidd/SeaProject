@@ -1,6 +1,7 @@
 import csv
 from tkinter import *
 import vlc # python-vlc est nécéssaire pour lire la musique
+import re
 
 sea = Tk()
 sea.geometry("800x600+100+100") # Taille de la fenêtre
@@ -22,21 +23,38 @@ def write_csv(meteo, vent, longitude, latitude):
     # Fenêtre du bouton OK
     newWindow = Toplevel(sea)
     newWindow.geometry("300x50+100+100") # Taille de la fenêtre
-    newWindow.title("Thanks")
+    newWindow.title("Merci")
     img = PhotoImage(file="imgs/favicon.png")
     newWindow.tk.call("wm", "iconphoto", newWindow._w, img)
 
     # Fait apparaitre la fenêtre
-    Label(newWindow, text ="Thanks for report the oil leaking !").pack()
-    label = Label(sea, text ="Thanks for report the oil leaking !")
+    Label(newWindow, text ="Merci d'avoir signalé la marée noire !").pack()
+    label = Label(sea, text ="Merci d'avoir signalé la marée noire !")
     label.pack
 
     def click_ok():
-        label_ok = Label(sea, text ="Ok")
+        label_ok = Label(sea, text ="OK")
         sea.destroy() # Quitte le programme
 
-    button_ok = Button(newWindow, text="Ok", command = click_ok, padx = 25, pady = 10)
+    button_ok = Button(newWindow, text="OK", command = click_ok, padx = 25, pady = 10)
     button_ok.pack()
+
+# Fonction pour vérifier que le champ météo est bon
+def checkError():
+    if bool(re.search(r"\b^c(alme)?$\b|\b^a(gité)?$\b", str(meteo.get()), re.IGNORECASE)) and bool(re.search(r"\b^l(ent)?$\b|\b^r(apide)?$\b", str(vent.get()), re.IGNORECASE)) == True:
+        write_csv(meteo, vent, longitude, latitude)
+    else:
+        error()
+
+#Fonction pour notifier qu'une donnée de l'utilisateur n'est pas valide
+def error():
+    errorWindow = Toplevel(sea)
+    errorWindow.geometry("300x50+100+100") # Taille de la fenêtre
+    errorWindow.title("Erreur")
+    img = PhotoImage(file="imgs/favicon.png")
+    errorWindow.tk.call("wm", "iconphoto", errorWindow._w, img)
+
+    Label(errorWindow, text ="Données non conforme !").pack()
 
 def mute():
     if p.is_playing():
@@ -80,7 +98,7 @@ longitude.grid(row = 5, column = 0, columnspan = 3, padx = 10, pady = 10)
 latitude = Entry(sea, width = 50, borderwidth = 5)
 latitude.grid(row = 7, column = 0, columnspan = 3, padx = 10, pady = 10)
 
-button_1 = Button(sea, text="Send", padx = 50, pady = 15, fg = "#00ff00", command = lambda: write_csv(meteo, vent, longitude, latitude)) # Bouton envoyer (lambda envoie les quatre valeurs)
+button_1 = Button(sea, text="Send", padx = 50, pady = 15, fg = "#00ff00", command = checkError) # Bouton envoyer (lambda envoie les quatre valeurs)
 button_2 = Button(sea, text="Exit", padx = 50, pady = 15, fg = "#ff0000", command = sea.destroy) # Bouton quitter
 button_3 = Button(sea, text="Mute Music", fg = "#ff0000", command = mute) # Bouton mute
 

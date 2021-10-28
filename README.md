@@ -4,3 +4,9 @@ Application du Projet Mer pour l'IMTS.
 * tkinter
 * vlc
 * csv
+## Participants
+* Daymortel
+* djalex
+* Mobzaaz
+* UneBaguette
+* Lihua

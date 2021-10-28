@@ -1,6 +1,5 @@
 import csv
 from tkinter import *
-import vlc # python-vlc est nécéssaire pour lire la musique
 import re
 import json
 import urllib.request
@@ -28,8 +27,6 @@ sea.tk.call("wm", "iconphoto", sea._w, img) # Place l'icone dans la barre de fen
 bg = PhotoImage(file="imgs/background.png") # Charge l'image de l'arrière-plan
 photo = Label(sea, image=bg)
 photo.place(x=0, y=0) # Place l'image en arrière-plan
-p = vlc.MediaPlayer("sounds/music.mp3") # Charge la musique
-p.play() # Lire la musique
 
 # Fonction pour écrire le formulaire dans un fichier CSV
 def write_csv(meteo, vent, latitude):
@@ -74,12 +71,6 @@ def error():
     button_ok = Button(errorWindow, text="OK", command = errorWindow.destroy, padx = 25, pady = 10)
     button_ok.pack()
 
-def mute():
-    if p.is_playing():
-        p.stop()
-    else:
-        p.play()
-
 # Label à placer à gauche du champ de texte pour la météo
 meteo_info = Label(sea, text="Quel est la météo ? (calme ou agité)", font=("Ubuntu", 20))
 meteo_info.grid(row = 0, column = 0, columnspan = 3, padx = 10, pady = 10)
@@ -100,16 +91,13 @@ vent.grid(row = 3, column = 0, columnspan = 3, padx = 10, pady = 10)
 
 button_1 = Button(sea, text="Send", padx = 30, pady = 15, fg = "#00ff00", command = checkError, font=("Ubuntu", 25)) # Bouton envoyer (lambda envoie les quatre valeurs)
 button_2 = Button(sea, text="Exit", padx = 40, pady = 15, fg = "#ff0000", command = sea.destroy, font=("Ubuntu", 25)) # Bouton quitter
-button_3 = Button(sea, text="Mute Music", fg = "#ff0000", command = mute, font=("Ubuntu", 12)) # Bouton mute
 
 button_1.grid(row = 8, column = 0)
 button_2.grid(row = 8, column = 1)
-button_3.grid(row = 3, column = 2)
 
 # Mise en page des boutons
 button_1.place(relx=0.35, rely=0.6, anchor=CENTER)
 button_2.place(relx=0.65, rely=0.6, anchor=CENTER)
-button_3.place(relx=0, rely=0, anchor=NW)
 meteo.place(relx=0.5, rely=0.2, anchor=N)
 vent.place(relx=0.5, rely=0.4, anchor=N)
 

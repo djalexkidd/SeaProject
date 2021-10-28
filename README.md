@@ -8,8 +8,8 @@ Application du Projet Mer pour l'IMTS.
 * re
 * json
 ## Participants
-* Daymortel
-* djalexkidd
-* Mobzaaz
-* UneBaguette
-* Lihua
+* **Daymortel**
+* **djalexkidd**
+* **Mobzaaz**
+* **UneBaguette**
+* **Lihua**

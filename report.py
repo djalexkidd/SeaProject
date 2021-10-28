@@ -3,11 +3,11 @@ from tkinter import *
 import vlc # python-vlc est nécéssaire pour lire la musique
 import re
 import json
-import urllib.request
+import urllib.request as urllr
 
 # Permet d'obtenir la géolocalisation
 url = 'http://ipinfo.io/json'
-response = urllib.request.urlopen(url)
+response = urllr.urlopen(url)
 data = json.load(response)
 
 # IP=data['ip']

@@ -39,15 +39,13 @@ def write_csv(meteo, vent, latitude):
 
     # Fenêtre du bouton OK
     newWindow = Toplevel(sea)
-    newWindow.geometry("350x80+100+100") # Taille de la fenêtre
+    newWindow.geometry("600x90+100+100") # Taille de la fenêtre
     newWindow.title("Merci")
     img = PhotoImage(file="imgs/favicon.png")
     newWindow.tk.call("wm", "iconphoto", newWindow._w, img)
 
     # Fait apparaitre la fenêtre
-    Label(newWindow, text ="Merci d'avoir signalé la marée noire !", font=("Ubuntu", 14)).pack()
-    label = Label(sea, text ="Merci d'avoir signalé la marée noire !")
-    label.pack
+    Label(newWindow, text ="Merci d'avoir signalé la marée noire !\nLe programme récupère la géolocalisation automatiquement.", font=("Ubuntu", 14)).pack()
 
     def click_ok():
         label_ok = Label(sea, text ="OK")

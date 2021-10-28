@@ -8,16 +8,7 @@ import urllib.request as urllr
 url = 'http://ipinfo.io/json'
 response = urllr.urlopen(url)
 data = json.load(response)
-
-# IP=data['ip']
-# org=data['org']
-# city = data['city']
-# country=data['country']
-# region=data['region']
 latitude=data['loc']
-
-# print("Your IP detail\n")
-# print("IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}\nLat : {5}".format(org,region,country,city,IP,latitude))
 
 sea = Tk()
 sea.geometry("800x600+100+100") # Taille de la fenêtre
@@ -32,7 +23,7 @@ photo.place(x=0, y=0) # Place l'image en arrière-plan
 def write_csv():
     with open("report.csv", "a", newline='', encoding='utf-8') as file: # Écrit dans le fichier report.csv
         write = csv.writer(file, quoting = csv.QUOTE_ALL)
-        write.writerow([meteo.get()] + [] + [vent.get()] + [] + [latitude]) # Écrit le formulaire dans le fichier
+        write.writerow([meteo.get()] + [] + [vent.get()] + [] + [litre.get()] + [] + [latitude]) # Écrit le formulaire dans le fichier
 
     # Fenêtre du bouton OK
     newWindow = Toplevel(sea)
@@ -53,8 +44,9 @@ def write_csv():
 
 # Fonction pour vérifier que le champ météo est bon
 def checkError(e):
-    if bool(re.search(r"\b^c(alme)?$\b|\b^a(gité)?$\b", str(meteo.get()), re.IGNORECASE)) and bool(re.search(r"\b^l(ent)?$\b|\b^r(apide)?$\b", str(vent.get()), re.IGNORECASE)) == True:
-        write_csv()
+    if bool(re.search(r"\b^c(alme)?$\b|\b^a(gité)?$\b", meteo.get(), re.IGNORECASE)) and bool(re.search(r"\b^l(ent)?$\b|\b^r(apide)?$\b", vent.get(), re.IGNORECASE)) == True:
+        if litre.get().isdecimal() or litre.get() == "":
+            write_csv()
     else:
         error()
 

@@ -2,6 +2,23 @@ import csv
 from tkinter import *
 import vlc # python-vlc est nécéssaire pour lire la musique
 import re
+import json
+import urllib.request
+
+# Permet d'obtenir la géolocalisation
+url = 'http://ipinfo.io/json'
+response = urllib.request.urlopen(url)
+data = json.load(response)
+
+# IP=data['ip']
+# org=data['org']
+# city = data['city']
+# country=data['country']
+# region=data['region']
+latitude=data['loc']
+
+# print("Your IP detail\n")
+# print("IP : {4} \nRegion : {1} \nCountry : {2} \nCity : {3} \nOrg : {0}\nLat : {5}".format(org,region,country,city,IP,latitude))
 
 sea = Tk()
 sea.geometry("800x600+100+100") # Taille de la fenêtre
@@ -15,10 +32,10 @@ p = vlc.MediaPlayer("sounds/music.mp3") # Charge la musique
 p.play() # Lire la musique
 
 # Fonction pour écrire le formulaire dans un fichier CSV
-def write_csv(meteo, vent, longitude, latitude):
+def write_csv(meteo, vent, latitude):
     with open("report.csv", "a", newline='', encoding='utf-8') as file: # Écrit dans le fichier report.csv
         write = csv.writer(file, quoting = csv.QUOTE_ALL)
-        write.writerow([meteo.get()] + [] + [vent.get()] + [] + [longitude.get()] + [] + [latitude.get()]) # Écrit le formulaire dans le fichier
+        write.writerow([meteo.get()] + [] + [vent.get()] + [] + [latitude]) # Écrit le formulaire dans le fichier
 
     # Fenêtre du bouton OK
     newWindow = Toplevel(sea)
@@ -42,7 +59,7 @@ def write_csv(meteo, vent, longitude, latitude):
 # Fonction pour vérifier que le champ météo est bon
 def checkError():
     if bool(re.search(r"\b^c(alme)?$\b|\b^a(gité)?$\b", str(meteo.get()), re.IGNORECASE)) and bool(re.search(r"\b^l(ent)?$\b|\b^r(apide)?$\b", str(vent.get()), re.IGNORECASE)) == True:
-        write_csv(meteo, vent, longitude, latitude)
+        write_csv(meteo, vent, latitude)
     else:
         error()
 
@@ -72,16 +89,6 @@ vent_info = Label(sea, text="Quel est la vitesse du vent ? (lent ou rapide)")
 vent_info.grid(row = 2, column = 0, columnspan = 3, padx = 10, pady = 10)
 vent_info.place(relx=0.5, rely=0.3, anchor=N)
 
-# Label à placer à gauche du champ de texte pour la longitude
-longitude_info = Label(sea, text="Quel est votre longitude ?")
-longitude_info.grid(row = 4, column = 0, columnspan = 3, padx = 10, pady = 10)
-longitude_info.place(relx=0.5, rely=0.5, anchor=N)
-
-# Label à placer à gauche du champ de texte pour la latitude
-latitude_info = Label(sea, text="Quel est votre latitude ?")
-latitude_info.grid(row = 6, column = 0, columnspan = 3, padx = 10, pady = 10)
-latitude_info.place(relx=0.5, rely=0.7, anchor=N)
-
 # Champ de texte à placer pour la météo
 meteo = Entry(sea, width = 50, borderwidth = 5)
 meteo.grid(row = 1, column = 0, columnspan = 3, padx = 10, pady = 10)
@@ -89,14 +96,6 @@ meteo.grid(row = 1, column = 0, columnspan = 3, padx = 10, pady = 10)
 # Champ de texte à placer pour la vitesse du vent
 vent = Entry(sea, width = 50, borderwidth = 5)
 vent.grid(row = 3, column = 0, columnspan = 3, padx = 10, pady = 10)
-
-# Champ de texte à placer pour la longitude
-longitude = Entry(sea, width = 50, borderwidth = 5)
-longitude.grid(row = 5, column = 0, columnspan = 3, padx = 10, pady = 10)
-
-# Champ de texte à placer pour la latitude
-latitude = Entry(sea, width = 50, borderwidth = 5)
-latitude.grid(row = 7, column = 0, columnspan = 3, padx = 10, pady = 10)
 
 button_1 = Button(sea, text="Send", padx = 50, pady = 15, fg = "#00ff00", command = checkError) # Bouton envoyer (lambda envoie les quatre valeurs)
 button_2 = Button(sea, text="Exit", padx = 50, pady = 15, fg = "#ff0000", command = sea.destroy) # Bouton quitter
@@ -107,13 +106,11 @@ button_2.grid(row = 8, column = 1)
 button_3.grid(row = 3, column = 2)
 
 # Mise en page des boutons
-button_1.place(relx=0.4, rely=0.9, anchor=N)
-button_2.place(relx=0.6, rely=0.9, anchor=N)
+button_1.place(relx=0.4, rely=0.6, anchor=CENTER)
+button_2.place(relx=0.6, rely=0.6, anchor=CENTER)
 button_3.place(relx=0, rely=0, anchor=NW)
 meteo.place(relx=0.5, rely=0.2, anchor=N)
 vent.place(relx=0.5, rely=0.4, anchor=N)
-longitude.place(relx=0.5, rely=0.6, anchor=N)
-latitude.place(relx=0.5, rely=0.8, anchor=N)
 
 sea.resizable(False, False) # Désactive le redimensionnement de la fenêtre
 

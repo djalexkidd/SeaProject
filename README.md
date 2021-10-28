@@ -6,7 +6,7 @@ Application du Projet Mer pour l'IMTS.
 * csv
 ## Participants
 * Daymortel
-* djalex
+* djalexkidd
 * Mobzaaz
 * UneBaguette
 * Lihua
